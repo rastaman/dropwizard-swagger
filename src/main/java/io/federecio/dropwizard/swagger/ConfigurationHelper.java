@@ -43,13 +43,13 @@ public class ConfigurationHelper {
             return swaggerBundleConfiguration.getUriPrefix();
         }
 
-        String rootPath;
+        String rootPath = null;
 
         ServerFactory serverFactory = configuration.getServerFactory();
 
-        if (serverFactory instanceof SimpleServerFactory) {
+        if (serverFactory instanceof SimpleServerFactory && ((SimpleServerFactory) serverFactory).getJerseyRootPath().isPresent()) {
             rootPath = ((SimpleServerFactory) serverFactory).getJerseyRootPath().get();
-        } else {
+        } else if (((DefaultServerFactory) serverFactory).getJerseyRootPath().isPresent()){
             rootPath = ((DefaultServerFactory) serverFactory).getJerseyRootPath().get();
         }
 
