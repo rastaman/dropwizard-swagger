@@ -47,8 +47,10 @@ public class ConfigurationHelper {
 
         ServerFactory serverFactory = configuration.getServerFactory();
 
-        if (serverFactory instanceof SimpleServerFactory && ((SimpleServerFactory) serverFactory).getJerseyRootPath().isPresent()) {
-            rootPath = ((SimpleServerFactory) serverFactory).getJerseyRootPath().get();
+        if (serverFactory instanceof SimpleServerFactory) {
+            if ( ((SimpleServerFactory) serverFactory).getJerseyRootPath().isPresent() ) {
+                rootPath = ((SimpleServerFactory) serverFactory).getJerseyRootPath().get();
+            }
         } else if (((DefaultServerFactory) serverFactory).getJerseyRootPath().isPresent()){
             rootPath = ((DefaultServerFactory) serverFactory).getJerseyRootPath().get();
         }
